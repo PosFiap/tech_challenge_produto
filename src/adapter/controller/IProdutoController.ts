@@ -32,6 +32,6 @@ export interface IProdutoController {
     }): Promise<ListaProdutoCategoriaOutputDTO>
 
     buscaProdutoPorCodigo(data: {
-        codigoProduto: number
+        codigoProduto: string
     }): Promise<BuscarProdutoOutputDTO>
 }

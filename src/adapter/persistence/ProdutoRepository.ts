@@ -1,6 +1,6 @@
 import { IProdutoRepository } from "../../modules/produto/ports/IProdutoRepository";
 import { PrismaClient } from "@prisma/client";
-import { IProdutoEntity } from "../../modules/produto/entity/IProdutoEntity";
+import { IProdutoEntity, IProdutoEntity2 } from "../../modules/produto/entity/IProdutoEntity";
 import { CustomError, CustomErrorType } from "../../utils/customError";
 import { ECategoria } from "../../modules/common/value-objects/ECategoria";
 
@@ -14,7 +14,7 @@ export class PrismaProdutoRepository implements IProdutoRepository {
     async deletaProduto(codigo: number): Promise<IProdutoEntity> {
         const existeProduto = !!(await this.prisma.produto.findUnique({
             where: {
-                codigo
+                id: String(codigo)
             }
         }));
         
@@ -26,7 +26,7 @@ export class PrismaProdutoRepository implements IProdutoRepository {
         let produtoDeletado;
         try{
             produtoDeletado = await this.prisma.produto.delete({
-                where: {codigo: codigo!}
+                where: {id: String(codigo!)}
             })
         } catch (err) {
             //@ts-ignore
@@ -41,10 +41,10 @@ export class PrismaProdutoRepository implements IProdutoRepository {
         return produtoDeletado;
     }
     
-    async buscaProdutoPorCodigo(codigo: number): Promise<IProdutoEntity> {
+    async buscaProdutoPorCodigo(codigo: string): Promise<IProdutoEntity> {
         const produto = await this.prisma.produto.findUnique({
             where: {
-                codigo
+                id: codigo
             }
         });
         
@@ -58,7 +58,7 @@ export class PrismaProdutoRepository implements IProdutoRepository {
             descricao: produto.descricao,
             nome: produto.nome,
             valor: produto.valor,
-            codigo: produto.codigo
+            id: produto.id
         }
     }
 
@@ -66,7 +66,7 @@ export class PrismaProdutoRepository implements IProdutoRepository {
         
         const existeProduto = !!(await this.prisma.produto.findUnique({
             where: {
-                codigo: produto.codigo
+                id: String(produto.codigo)
             }
         }));
         
@@ -83,7 +83,7 @@ export class PrismaProdutoRepository implements IProdutoRepository {
                 categoria_codigo: produto.categoria_codigo
             },
             where: {
-                codigo : produto.codigo!
+                id : String(produto.codigo!)
             }
         })
         
@@ -91,13 +91,13 @@ export class PrismaProdutoRepository implements IProdutoRepository {
 
     }
 
-    buscaProdutoPorCategoria(categoriaCodigo: ECategoria): Promise<IProdutoEntity[]> {
+    buscaProdutoPorCategoria(categoriaCodigo: ECategoria): Promise<IProdutoEntity2[]> {
         const produtos = this.prisma.produto.findMany({
             where: {
                 categoria_codigo: categoriaCodigo
             }
         });
-
+        
         return produtos;
     }
 

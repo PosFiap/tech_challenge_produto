@@ -18,6 +18,7 @@ export class ListaProdutoCategoriaDTO {
 export class ItemListaProdutoCategoriaDTO {
   constructor (
     readonly codigo: number,
+    readonly id: String | undefined,
     readonly nome: string,
     readonly descricao: string,
     readonly valor: number,
@@ -36,6 +37,7 @@ export class ListaProdutoCategoriaOutputDTO {
       produtos: this.itemListaProdutoCategoria.map((produto) => {
         return {
           codigo: produto.codigo,
+          id: produto.id,
           nome: produto.nome,
           descricao: produto.descricao,
           valor: produto.valor,

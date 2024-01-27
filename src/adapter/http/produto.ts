@@ -57,7 +57,7 @@ export class ProdutoHTTP {
         this.router.get('/:codigo', async (req, res) => {
             
             try{
-                const codigoProduto = parseInt(req.params.codigo, 10);
+                const codigoProduto = req.params.codigo
                 const produtos = await this.produtoController.buscaProdutoPorCodigo({
                     codigoProduto 
                 });

@@ -113,7 +113,16 @@ export const main = async (): Promise<void> => {
 
   for(let i = 0; i < produtos.length; i++) {
     // const codigo = getProductId()
-    const res = await prisma.produto.create(produtos[i]);
+    const res = await prisma.produto.create({
+      data: {
+        categoria_codigo: produtos[i].data.categoria_codigo,
+        descricao: produtos[i].data.descricao,
+        nome: produtos[i].data.nome,
+        valor: produtos[i].data.valor
+        
+      }
+    }
+      );
 
     // @ts-ignore
     produtos[i].codigo = res.codigo;

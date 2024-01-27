@@ -86,6 +86,7 @@ export class ProdutoService implements IProdutoService {
             produtos.map((produto) => {
                 return new ItemListaProdutoCategoriaDTO(
                     produto.codigo!,
+                    produto.id,
                     produto.nome,
                     produto.descricao,
                     produto.valor,

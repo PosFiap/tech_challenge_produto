@@ -3,13 +3,13 @@ import { ECategoria } from "../../common/value-objects/ECategoria";
 
 export class BuscarProdutoDTO {
     constructor(
-        readonly codigo: number,
+        readonly codigo: string,
     ){
         this.validaCodigo();
     }
 
     private validaCodigo() {
-        if(!this.codigo || isNaN(this.codigo)) throw new CustomError(CustomErrorType.InvalidInput, "Código inválido");
+        if(!this.codigo) throw new CustomError(CustomErrorType.InvalidInput, "Código inválido");
     }
 }
 

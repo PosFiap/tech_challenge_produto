@@ -1,14 +1,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: postgres-vol
-  # # namespace: postgres
-  labels:
-    app: postgres-vol
+  name: mongo-pvc
 spec:
-  storageClassName: csi-hostpath-sc
   accessModes:
-  - ReadWriteOnce
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 15Gi
+      storage: 1Gi

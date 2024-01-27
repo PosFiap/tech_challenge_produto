@@ -20,7 +20,7 @@ export class ProdutoController implements IProdutoController {
         return produto;
     }
 
-    async buscaProdutoPorCodigo(data: { codigoProduto: number; }): Promise<BuscarProdutoOutputDTO> {
+    async buscaProdutoPorCodigo(data: { codigoProduto: string; }): Promise<BuscarProdutoOutputDTO> {
         const inputDTO = new BuscarProdutoDTO(data.codigoProduto);
         const produto = await this.produtoService.buscaProduto(inputDTO);
         return produto;
