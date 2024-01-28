@@ -11,10 +11,10 @@ export class PrismaProdutoRepository implements IProdutoRepository {
         this.prisma = new PrismaClient();
     }
 
-    async deletaProduto(codigo: number): Promise<IProdutoEntity> {
+    async deletaProduto(codigo: string): Promise<IProdutoEntity> {
         const existeProduto = !!(await this.prisma.produto.findUnique({
             where: {
-                id: String(codigo)
+                id: codigo
             }
         }));
         
@@ -26,7 +26,7 @@ export class PrismaProdutoRepository implements IProdutoRepository {
         let produtoDeletado;
         try{
             produtoDeletado = await this.prisma.produto.delete({
-                where: {id: String(codigo!)}
+                where: {id: codigo!}
             })
         } catch (err) {
             //@ts-ignore
@@ -66,7 +66,7 @@ export class PrismaProdutoRepository implements IProdutoRepository {
         
         const existeProduto = !!(await this.prisma.produto.findUnique({
             where: {
-                id: String(produto.codigo)
+                id: produto.id
             }
         }));
         
@@ -83,7 +83,7 @@ export class PrismaProdutoRepository implements IProdutoRepository {
                 categoria_codigo: produto.categoria_codigo
             },
             where: {
-                id : String(produto.codigo!)
+                id : produto.id
             }
         })
         

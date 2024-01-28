@@ -9,7 +9,7 @@ export interface IProdutoController {
     produtoService: IProdutoService;
 
     deletaProduto(data: {
-        codigoProduto: number
+        codigoProduto: string
     }): Promise<DeletaProdutoOutputDTO>
     
     registraProduto(data: {
@@ -20,6 +20,7 @@ export interface IProdutoController {
     }): Promise<RegistraProdutoOutputDTO>
 
     alteraProduto(data: {
+        id: string,
         codigo: number,
         nome: string,
         descricao: string,

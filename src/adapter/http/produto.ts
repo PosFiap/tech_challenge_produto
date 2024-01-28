@@ -78,12 +78,13 @@ export class ProdutoHTTP {
         this.router.put('/:id', async(req, res) => {
         
             try {
-                const codigoProduto = parseInt(req.params.id, 10);
+                const codigoProduto = req.params.id;
                 const produto = req.body;
                 const resultado = await this.produtoController.alteraProduto(
                     {
                         categoria_codigo: produto.categoria_codigo,
-                        codigo: codigoProduto,
+                        codigo: 999,
+                        id: codigoProduto,
                         descricao: produto.descricao,
                         nome: produto.nome,
                         valor: produto.valor
@@ -104,7 +105,7 @@ export class ProdutoHTTP {
         this.router.delete('/:codigo', async(req, res) => {
         
             try{
-                const codigoProduto = parseInt(req.params.codigo, 10);
+                const codigoProduto = req.params.codigo;
             
                 const produtoDeletado = await this.produtoController.deletaProduto({
                     codigoProduto

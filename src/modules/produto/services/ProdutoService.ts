@@ -28,6 +28,7 @@ export class ProdutoService implements IProdutoService {
 
         return new DeletaProdutoOutputDTO(
             produto.codigo!,
+            produto.id!,
             produto.nome,
             produto.descricao,
             produto.valor,
@@ -53,6 +54,7 @@ export class ProdutoService implements IProdutoService {
     async alteraProduto(data: AlteraProdutoDTO): Promise<AlteraProdutoOutputDTO> {
         const produto = new Produto(
             data.codigo,
+            data.id,
             data.nome,
             data.descricao,
             data.valor,
@@ -64,12 +66,14 @@ export class ProdutoService implements IProdutoService {
             descricao: produto.descricao,
             nome: produto.nome,
             valor: produto.valor,
-            codigo: produto.codigo!
+            codigo: produto.codigo!,
+            id: produto.id!
         }
         
         const produtoInserido = await this.produtoRepository.alteraProduto(produtoEntity);
 
         return new AlteraProdutoOutputDTO(
+            produtoInserido.id!,
             produtoInserido.codigo!,
             produtoInserido.nome,
             produtoInserido.descricao,
@@ -99,6 +103,7 @@ export class ProdutoService implements IProdutoService {
     async registraProduto(data: RegistraProdutoDTO): Promise<RegistraProdutoOutputDTO> {
 
         const produto = new Produto(
+            null,
             null,
             data.nome,
             data.descricao,

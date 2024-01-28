@@ -14,7 +14,7 @@ export class ProdutoController implements IProdutoController {
         readonly produtoService: IProdutoService
     ) {}
 
-    async deletaProduto(data: { codigoProduto: number; }): Promise<DeletaProdutoOutputDTO> {
+    async deletaProduto(data: { codigoProduto: string; }): Promise<DeletaProdutoOutputDTO> {
         const inputDTO = new DeletaProdutoDTO(data.codigoProduto);
         const produto = await this.produtoService.deletaProduto(inputDTO);
         return produto;
@@ -26,8 +26,9 @@ export class ProdutoController implements IProdutoController {
         return produto;
     }
 
-    async alteraProduto(data: { codigo: number; nome: string; descricao: string; valor: number; categoria_codigo: number; }): Promise<AlteraProdutoOutputDTO> {
+    async alteraProduto(data: { id: string, codigo: number; nome: string; descricao: string; valor: number; categoria_codigo: number; }): Promise<AlteraProdutoOutputDTO> {
         const inputDTO = new AlteraProdutoDTO(
+            data.id,
             data.codigo,
             data.nome,
             data.descricao,

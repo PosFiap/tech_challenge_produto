@@ -4,6 +4,7 @@ import { ECategoria } from '../../common/value-objects/ECategoria'
 export class Produto {
   constructor (
     readonly codigo: number | null,
+    readonly id: string | null,
     readonly nome: string,
     readonly descricao: string,
     readonly valor: number,

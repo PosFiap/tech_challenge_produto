@@ -3,6 +3,7 @@ import { ECategoria } from '../../common/value-objects/ECategoria'
 
 export class AlteraProdutoDTO {
     constructor(
+        readonly id: string,
         readonly codigo: number,
         readonly nome: string,
         readonly descricao: string,
@@ -19,6 +20,10 @@ export class AlteraProdutoDTO {
     validaCodigo() {
         if(!this.codigo || isNaN(this.codigo)) throw new CustomError(CustomErrorType.InvalidInput, "Código inválido");
     }
+
+    validaId() {
+      if(!this.id) throw new CustomError(CustomErrorType.InvalidInput, "Id inválido");
+  }
 
     validaDescricao() {
         if(!this.descricao) throw new CustomError(CustomErrorType.InvalidInput, "Descrição inválida");
@@ -43,6 +48,7 @@ export class AlteraProdutoDTO {
 
 export class AlteraProdutoOutputDTO {
   constructor (
+    readonly id: string,
     readonly codigo: number,
     readonly nome: string,
     readonly descricao: string,
@@ -52,6 +58,7 @@ export class AlteraProdutoOutputDTO {
 
   toJSON (): Record<string, any> {
     return {
+      id: this.id,
       codigo: this.codigo,
       nome: this.nome,
       descricao: this.descricao,
