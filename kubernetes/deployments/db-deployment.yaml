@@ -1,23 +1,28 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: mongo
+  name: postgres-produtos-deployment
+  # namespace: postgres
 spec:
-  serviceName: "mongo"
-  replicas: 3
+  replicas: 1  
   selector:
     matchLabels:
-      app: mongo
+      app: postgres-produtos
   template:
     metadata:
       labels:
-        app: mongo
+        app: postgres-produtos
     spec:
       containers:
-        - name: mongo
-          image: mongo:latest
+        - name: postgres-produtos-container
+          image: postgres
+          envFrom:
+            - configMapRef:
+                name: db-deployment-produtos-configmap
+            - secretRef:
+                name:  postgres-produtos-secrets
           ports:
-            - containerPort: 27017
-          volumeMounts:
-            - name: mongo-data
-              mountPath: /data/db
+            - containerPort: 5432
+          
+
+

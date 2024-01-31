@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: challenge-deployment
+  name: challenge-produtos-deployment
   # namespace: challenge
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: challenge
+      app: challenge-produtos
   template:
     metadata:
       labels:
-        app: challenge
+        app: challenge-produtos
     spec:
       # restartPolicy: Always 
       containers:
-        - name: challenge-container
-          image: encortondo/fiap-tech-challenge:0.0.5
+        - name: challenge-produtos-container
+          image: encortondo/fiap-tech-challenge-produtos
           ports:
-            - containerPort: 8080  
+            - containerPort: 8082 
           command: ["npm", "run", "start"]
           envFrom:
             - configMapRef:
-                name: deployment-configmap
+                name: deployment-produtos-configmap
             - secretRef:
-                name:  challenge-secrets
+                name:  challenge-produtos-secrets
 
